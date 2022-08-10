@@ -32,10 +32,18 @@ body {
     max-height: 130px;
 }
 
-.logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 140px;
+    background-color: var(--main-color);
+}
+
+.header .logo-img {
+    max-width: 300px;
+    max-height: 150px;
 }
 
 @keyframes rotation {
