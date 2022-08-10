@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'Pokemon Solid';
+    src: url('../font/Pokemon\ Solid.ttf.ttf');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --body-fonts: roboto, sans-serif;
+    --main-color: #FF2633;
+    --secondary-color: #E3CD00;
+    --terciary-color: #1B39D3;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--body-fonts);
+    width: 100vw;
+}
+
+.header {
+    background-color: var(--main-color);
+}
+
+.logo-img {
+    max-width: 275px;
+    max-height: 130px;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(359deg);
+    }
+}
+
+.rotate {
+    animation: rotation 3s infinite ease-in-out;
+}
+
+.pokefont {
+    font-family: 'Pokemon Solid', roboto;
+}

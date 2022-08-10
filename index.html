@@ -4,11 +4,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>Pokédex</title>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous" defer></script>
+
 </head>
-<body>
-    
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg" style="background-color: var(--bs-red);">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img src="./img/logo.png" alt="" width="125" height="75">
+            </a>
+        </div>
+    </nav>
+    <main class="container-fluid text-center mt-5">
+        <form method="get" class="row justify-content-evenly">
+            <div class="col-4">
+                <div class="list-group border">
+                    <a href="#" class="list-group-item list-group-item-action disabled p-3 pokefont text-warning bg-primary">Choose a Pokémon</a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                    <a href="#" class="list-group-item list-group-item-action p-3 text-start"></a>
+                </div>
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item">
+                        <a href="#" class="page-link disabled" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <div class="card text-white border" style="background-color: var(--bs-red)">
+                    <img src="./img/pokeball.png" class="card-img-top img-fluid mx-auto rotate" style="width: 200px" alt="No photo" data-result="image">
+                    <p>No Photo</p>
+                    <div class="card-body">
+                        <h5 class="card-title">Name: <span data-result="name"></span></h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-start">Height: <span data-result="height"></span></li>
+                            <li class="list-group-item text-start">Weight: <span data-result="weight"></span></li>
+                            <li class="list-group-item text-start">Type: <span data-result="type"></span></li>
+                            <li class="list-group-item text-start">Abilities: <span data-result="abilities"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </main>
+    <footer></footer>
 </body>
 </html>
