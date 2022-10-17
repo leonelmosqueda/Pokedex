@@ -13,6 +13,8 @@ async function setInitialParameters() {
     const data = await getData(url);
     pokemonAmount = data.count;
     totalPages = Math.round(pokemonAmount / POKEMON_LIMIT_PER_PAGE);
+    createList(data.results.length);
+    configurePokemonList(data.results);
 }
 
 function getListUrl (offset) {
@@ -26,6 +28,31 @@ function getData (url) {
     } catch (error) {
         console.error(error);
     }
+}
+
+function createList (count) {
+    const $list = document.querySelector('#list');
+
+    for (let i = 0; i < count; i++) {
+        const newPokemon = document.createElement('a');
+        newPokemon.classList.add('list-group-item', 'list-group-item-action', 'p-2', 'text-start', 'text-capitalize', 'fs-6');
+        newPokemon.dataset.list = '';
+
+        $list.appendChild(newPokemon);
+    }
+}
+
+function configurePokemonList (pokemonList) {
+    const $listItems = document.querySelectorAll('[data-list]');
+
+    $listItems.forEach((item, index) => {
+        item.textContent = pokemonList[index].name;
+        item.dataset.id = getId(pokemonList[index].url);
+    })
+}
+
+function getId (url) {
+    return url.slice(url.search('pokemon') + 7);
 }
 
 setInitialParameters();
