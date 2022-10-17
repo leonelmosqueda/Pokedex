@@ -141,3 +141,60 @@ function hideSelectedPokemon() {
 
     $pokemonList.forEach(pokemon => pokemon.classList.remove('active'));
 }
+
+const $list = document.querySelector('#list');
+
+$list.addEventListener('click', async e => {
+    const pokemon = e.target;
+
+    if (!validateClick(pokemon)) return;
+
+    hideSelectedPokemon();
+    highlightSelectedPokemon(pokemon);
+    const pokemonData = await getData(getPokemonUrl(pokemon.dataset.id));
+    handlePokemonData(pokemonData);
+});
+
+function validateClick(element) {
+    if (element.hasAttribute('data-list')) return true;
+    return false;
+}
+
+function highlightSelectedPokemon(pokemon) {
+    pokemon.classList.add('active');
+}
+
+function getPokemonUrl(id) {
+    return `${URL_API + id}`;
+}
+
+function handlePokemonData(data) {
+    setImage(data.sprites.other['official-artwork']['front_default']);
+    setName(data.name);
+    setStats(data)
+}
+
+function setImage (image) {
+    const $image = document.querySelector('[data-result="image"]');
+
+    $image.classList.remove('rotate');
+    $image.src = image;
+}
+
+function setName (name) {
+    const $name = document.querySelector('[data-result="name"]');
+
+    $name.textContent = name;
+}
+
+function setStats (data) {
+    const $height = document.querySelector('[data-result="height"]');
+    const $weight = document.querySelector('[data-result="weight"]');
+    const $type = document.querySelector('[data-result="type"]');
+    const $abilities = document.querySelector('[data-result="abilities"]');
+
+    $height.textContent = `${data.height * 10} cm`;
+    $weight.textContent = `${data.weight / 10} kg`;
+    $type.textContent = data.types[1] ? `${data.types[0].type.name}, ${data.types[1].type.name}` : `${data.types[0].type.name}`;
+    $abilities.textContent = data.abilities[2] ? `${data.abilities[0].ability.name}, ${data.abilities[1].ability.name}, ${data.abilities[2].ability.name}` : data.abilities[1] ? `${data.abilities[0].ability.name}, ${data.abilities[1].ability.name}` : `${data.abilities[0].ability.name}`;
+}
