@@ -106,3 +106,38 @@ function highlightCurrentPageButton (currentPage) {
 }
 
 setInitialParameters();
+
+const $pages = document.querySelectorAll('[data-page]');
+
+$pages.forEach(page => {
+    page.addEventListener('click', handlePagination)
+});
+
+async function handlePagination () {
+    hideSelectedPage();
+    currentOffset = this.dataset.offset;
+    currentPage = this.dataset.page;
+    const url = getListUrl(currentOffset);
+    const data = await getData(url);
+    clearList();
+    configurePagination(currentOffset, currentPage);
+    createList(data.results.length);
+    configurePokemonList(data.results);
+    hideSelectedPokemon();
+}
+
+function hideSelectedPage () {
+    $pages.forEach(page => page.classList.remove('active'));
+}
+
+function clearList () {
+    const $list = document.querySelectorAll('[data-list]');
+
+    $list.forEach(pokemon => pokemon.remove());
+}
+
+function hideSelectedPokemon() {
+    const $pokemonList = document.querySelectorAll('[data-list]');
+
+    $pokemonList.forEach(pokemon => pokemon.classList.remove('active'));
+}
