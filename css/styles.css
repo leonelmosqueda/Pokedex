@@ -65,3 +65,7 @@ body {
 .italic {
     font-style: italic;
 }
+
+.ocult {
+    display: none;
+}
