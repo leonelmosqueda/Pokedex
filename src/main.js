@@ -15,6 +15,7 @@ async function setInitialParameters() {
     totalPages = Math.round(pokemonAmount / POKEMON_LIMIT_PER_PAGE);
     createList(data.results.length);
     configurePokemonList(data.results);
+    configurePagination(currentOffset, currentPage)
 }
 
 function getListUrl (offset) {
@@ -53,6 +54,55 @@ function configurePokemonList (pokemonList) {
 
 function getId (url) {
     return url.slice(url.search('pokemon') + 7);
+}
+
+function configurePagination (currentOffset, currentPage) {
+    const $pagination = document.querySelectorAll('#pagination li a');
+
+    configurePaginationData($pagination, currentOffset, currentPage);
+    highlightCurrentPageButton(currentPage);
+}
+
+function configurePaginationData (pagination, currentOffset, currentPage) {
+    if (currentPage <= 3 || currentPage === 'first') {
+        setNumeration(pagination, 1);
+        setPageOffset(pagination, 0);
+        currentPage === 'first' || currentPage === 1 ? pagination[0].classList.add('disabled') : pagination[6].classList.remove('disabled');
+    } else if (currentPage >= totalPages - 3 || currentPage === 'last') {
+        setNumeration(pagination, totalPages - 4);
+        setPageOffset(pagination, totalPages * POKEMON_LIMIT_PER_PAGE - 40);
+        currentPage === 'last' || currentPage === totalPages ? pagination[6].classList.add('disabled') : pagination[0].classList.remove('disabled');
+    } else {
+        setNumeration(pagination, currentPage - 2);
+        setPageOffset(pagination, currentOffset - 20);
+        pagination[0].classList.remove('disabled');
+        pagination[6].classList.remove('disabled');
+    }
+}
+
+function setNumeration (pagination, firstNumber) {
+    for (let i = 0; i < 5; i++) {
+        pagination[i + 1].textContent = firstNumber + i;
+        pagination[i + 1].dataset.page = firstNumber + i; 
+    }
+};
+
+function setPageOffset (pagination, initialOffset) {
+    pagination[0].dataset.offset = 0;
+    pagination[6].dataset.offset = totalPages * POKEMON_LIMIT_PER_PAGE;
+
+    for (let i = 0; i < pagination.length - 2; i++) {
+        pagination[i + 1].dataset.offset = initialOffset + POKEMON_LIMIT_PER_PAGE * i;
+    }
+}
+
+function highlightCurrentPageButton (currentPage) {
+    if (currentPage === 'first') currentPage = 1;
+    if (currentPage === 'last') currentPage = totalPages;
+
+    const $currentPage = document.querySelector(`[data-page="${currentPage}"]`);
+
+    $currentPage.classList.add('active');
 }
 
 setInitialParameters();
