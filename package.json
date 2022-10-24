@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/leonelmosqueda/pokedex/issues"
   },
-  "homepage": "https://github.com/leonelmosqueda/pokedex#readme"
+  "homepage": "https://github.com/leonelmosqueda/pokedex#readme",
+  "dependencies": {
+    "cypress": "^10.10.0"
+  }
 }
