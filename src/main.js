@@ -6,11 +6,11 @@ let currentOffset;
 let totalPages;
 let pokemonAmount;
 
-function getListUrl(offset) {
+function getListUrl (offset) {
   return `${URL_API}?offset=${offset}&limit=${POKEMON_LIMIT_PER_PAGE}`;
 }
 
-function getData(url) {
+function getData (url) {
   try {
     const response = fetch(url).then((r) => r.json());
     return response;
@@ -20,7 +20,7 @@ function getData(url) {
   }
 }
 
-function createList(count) {
+function createList (count) {
   const $list = document.querySelector('#list');
 
   for (let i = 0; i < count; i += 1) {
@@ -31,7 +31,7 @@ function createList(count) {
       'p-2',
       'text-start',
       'text-capitalize',
-      'fs-6',
+      'fs-6'
     );
     newPokemon.dataset.list = '';
 
@@ -39,11 +39,11 @@ function createList(count) {
   }
 }
 
-function getId(url) {
+function getId (url) {
   return url.slice(url.search('pokemon') + 7);
 }
 
-function configurePokemonList(pokemonList) {
+function configurePokemonList (pokemonList) {
   const $listItems = document.querySelectorAll('[data-list]');
 
   $listItems.forEach((item, index) => {
@@ -53,7 +53,7 @@ function configurePokemonList(pokemonList) {
   });
 }
 
-function setNumeration(pagination, firstNumber) {
+function setNumeration (pagination, firstNumber) {
   for (let i = 0; i < 5; i += 1) {
     const paginationList = pagination;
     paginationList[i + 1].textContent = firstNumber + i;
@@ -61,7 +61,7 @@ function setNumeration(pagination, firstNumber) {
   }
 }
 
-function setPageOffset(pagination, initialOffset) {
+function setPageOffset (pagination, initialOffset) {
   const paginationList = pagination;
   paginationList[0].dataset.offset = 0;
   paginationList[6].dataset.offset = totalPages * POKEMON_LIMIT_PER_PAGE;
@@ -71,7 +71,7 @@ function setPageOffset(pagination, initialOffset) {
   }
 }
 
-function configurePaginationData(pagination, offset, page) {
+function configurePaginationData (pagination, offset, page) {
   if (page <= 3 || page === 'first') {
     setNumeration(pagination, 1);
     setPageOffset(pagination, 0);
@@ -100,7 +100,7 @@ function configurePaginationData(pagination, offset, page) {
   }
 }
 
-function highlightCurrentPageButton(page) {
+function highlightCurrentPageButton (page) {
   let actualPage = page;
   if (page === 'first') actualPage = 1;
   if (page === 'last') actualPage = totalPages;
@@ -110,14 +110,14 @@ function highlightCurrentPageButton(page) {
   $currentPage.classList.add('active');
 }
 
-function configurePagination(offset, page) {
+function configurePagination (offset, page) {
   const $pagination = document.querySelectorAll('#pagination li a');
 
   configurePaginationData($pagination, offset, page);
   highlightCurrentPageButton(page);
 }
 
-async function setInitialParameters() {
+async function setInitialParameters () {
   currentOffset = 0;
   currentPage = 1;
   const url = getListUrl(currentOffset);
@@ -131,23 +131,23 @@ async function setInitialParameters() {
 
 const $pages = document.querySelectorAll('[data-page]');
 
-function hideSelectedPage() {
+function hideSelectedPage () {
   $pages.forEach((page) => page.classList.remove('active'));
 }
 
-function clearList() {
+function clearList () {
   const $list = document.querySelectorAll('[data-list]');
 
   $list.forEach((pokemon) => pokemon.remove());
 }
 
-function hideSelectedPokemon() {
+function hideSelectedPokemon () {
   const $pokemonList = document.querySelectorAll('[data-list]');
 
   $pokemonList.forEach((pokemon) => pokemon.classList.remove('active'));
 }
 
-async function handlePagination() {
+async function handlePagination () {
   hideSelectedPage();
   currentOffset = this.dataset.offset;
   currentPage = this.dataset.page;
@@ -166,33 +166,33 @@ $pages.forEach((page) => {
 
 const $list = document.querySelector('#list');
 
-function validateClick(element) {
+function validateClick (element) {
   if (element.hasAttribute('data-list')) return true;
   return false;
 }
 
-function highlightSelectedPokemon(pokemon) {
+function highlightSelectedPokemon (pokemon) {
   pokemon.classList.add('active');
 }
 
-function getPokemonUrl(id) {
+function getPokemonUrl (id) {
   return `${URL_API + id}`;
 }
 
-function setImage(image) {
+function setImage (image) {
   const $image = document.querySelector('[data-result="image"]');
 
   $image.classList.remove('rotate');
   $image.src = image;
 }
 
-function setName(name) {
+function setName (name) {
   const $name = document.querySelector('[data-result="name"]');
 
   $name.textContent = name;
 }
 
-function setStats(data) {
+function setStats (data) {
   const $height = document.querySelector('[data-result="height"]');
   const $weight = document.querySelector('[data-result="weight"]');
   const $type = document.querySelector('[data-result="type"]');
@@ -216,7 +216,7 @@ function setStats(data) {
   }
 }
 
-function handlePokemonData(data) {
+function handlePokemonData (data) {
   setImage(data.sprites.other['official-artwork'].front_default);
   setName(data.name);
   setStats(data);
