@@ -7,7 +7,7 @@ export const POKEMON_POR_PAGINA = 10;
 async function actualizarListado (url) {
   const data = await obtenerInformacionApi(undefined, url);
   limpiarLista();
-  mostrarListadoPokemon(data.listadoPokemon, actualizarPokemon);
+  mostrarListadoPokemon(await obtenerInformacionApi(undefined, url).listadoPokemon, actualizarPokemon);
   mostrarPaginacion(data.paginaAnterior, obtenerPaginaActual(url), data.paginaSiguiente, actualizarListado);
 }
 

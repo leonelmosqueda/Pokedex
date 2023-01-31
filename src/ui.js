@@ -42,9 +42,9 @@ export function mostrarListadoPokemon (listado, callbackSeleccionarPokemon) {
   configurarLista(listado, callbackSeleccionarPokemon);
 }
 
-export function mostrarPaginacion (paginaAnterior, paginaActual, paginaSiguiente, callbackActualizacionLista) {
-  const $paginacion = document.querySelectorAll('[data-page]');
+const $paginacion = document.querySelectorAll('[data-page]');
 
+export function mostrarPaginacion (paginaAnterior, paginaActual, paginaSiguiente, callbackActualizacionLista) {
   if (paginaAnterior === null) $paginacion[0].classList.add('disabled');
   else $paginacion[0].classList.remove('disabled');
   if (paginaSiguiente === null) $paginacion[2].classList.add('disabled');
@@ -59,11 +59,12 @@ export function mostrarPaginacion (paginaAnterior, paginaActual, paginaSiguiente
   $paginacion.forEach(($pagina) => {
     if ($pagina.classList.contains('active')) return;
 
-    $pagina.addEventListener('click', (e) => {
-      const urlPagina = e.target.dataset.page;
+    $pagina.onclick = manejarCambioPagina;
 
+    function manejarCambioPagina () {
+      const urlPagina = this.dataset.page;
       callbackActualizacionLista(urlPagina);
-    });
+    }
   });
 }
 
