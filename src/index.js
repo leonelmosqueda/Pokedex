@@ -1,25 +1,25 @@
 import { obtenerInformacionApi, obtenerInformacionPokemon } from './services.js';
 import { limpiarLista, mostrarInformacionPokemon, mostrarListadoPokemon, mostrarPaginacion } from './ui.js';
-import { obtenerPaginaActual, tratarInformacion } from './utilities.js';
+import { obtenerPaginaActual, formatearInformacion } from './utilities.js';
 
 export const POKEMON_POR_PAGINA = 10;
 
 async function actualizarListado (url) {
-  const data = await obtenerInformacionApi(undefined, url);
+  const dataApi = await obtenerInformacionApi('', url);
   limpiarLista();
-  mostrarListadoPokemon(await obtenerInformacionApi(undefined, url).listadoPokemon, actualizarPokemon);
-  mostrarPaginacion(data.paginaAnterior, obtenerPaginaActual(url), data.paginaSiguiente, actualizarListado);
+  mostrarListadoPokemon(dataApi.listadoPokemon, actualizarPokemon);
+  mostrarPaginacion(dataApi.paginaAnterior, obtenerPaginaActual(url), dataApi.paginaSiguiente, actualizarListado);
 }
 
 async function actualizarPokemon (id) {
-  mostrarInformacionPokemon(tratarInformacion(await obtenerInformacionPokemon(id)));
+  mostrarInformacionPokemon(formatearInformacion(await obtenerInformacionPokemon(id)));
 }
 
 async function inicializar () {
   const paginaInicial = 1;
-  const data = await obtenerInformacionApi(`?offset=0&limit=${POKEMON_POR_PAGINA}`, undefined);
-  mostrarListadoPokemon(data.listadoPokemon, actualizarPokemon);
-  mostrarPaginacion(data.paginaAnterior, paginaInicial, data.paginaSiguiente, actualizarListado);
+  const dataApi = await obtenerInformacionApi(`?offset=0&limit=${POKEMON_POR_PAGINA}`, '');
+  mostrarListadoPokemon(dataApi.listadoPokemon, actualizarPokemon);
+  mostrarPaginacion(dataApi.paginaAnterior, paginaInicial, dataApi.paginaSiguiente, actualizarListado);
 }
 
 inicializar();

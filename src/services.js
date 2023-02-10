@@ -2,8 +2,8 @@ const URL_API = 'https://pokeapi.co/api/v2/pokemon';
 
 export async function obtenerInformacionApi (endpoint, url) {
   try {
-    if (url === undefined) {
-      const respuesta = await fetch(`${URL_API + endpoint}`).then((resp) => resp.json());
+    if (!url) {
+      const respuesta = await fetch(`${URL_API + endpoint}`).then((r) => r.json());
       return {
         cantidadPokemon: respuesta.count,
         paginaSiguiente: respuesta.next,
@@ -11,7 +11,7 @@ export async function obtenerInformacionApi (endpoint, url) {
         listadoPokemon: respuesta.results
       };
     } else {
-      const respuesta = await fetch(url).then((resp) => resp.json());
+      const respuesta = await fetch(url).then((r) => r.json());
       return {
         cantidadPokemon: respuesta.count,
         paginaSiguiente: respuesta.next,
@@ -26,7 +26,7 @@ export async function obtenerInformacionApi (endpoint, url) {
 
 export async function obtenerInformacionPokemon (id) {
   try {
-    const respuesta = fetch(`${URL_API}/${id}`).then((resp) => resp.json());
+    const respuesta = await fetch(`${URL_API}/${id}`).then((r) => r.json());
     return respuesta;
   } catch (error) {
     console.error(error);
