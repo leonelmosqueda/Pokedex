@@ -26,19 +26,7 @@
                 <div class="list-group border" id="list">
                     <a href="#" class="list-group-item list-group-item-action disabled p-3 pokefont text-warning bg-primary">Choose a Pokémon</a>
                 </div>
-                <ul class="pagination justify-content-center mt-3" id="pagination">
-                    <li class="page-item">
-                        <a href="#" class="page-link" aria-label="Previous" data-page="previous">
-                            &laquo;
-                        </a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#" data-page="current-page"></a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next" data-page="next">
-                            &raquo;
-                        </a>
-                    </li>
-                </ul>
+                <ul class="pagination justify-content-center mt-3" id="paginator"></ul>
             </div>
             <div class="col-4">
                 <div class="card text-white border" style="background-color: var(--bs-red)">
@@ -50,7 +38,7 @@
                     <ul class="list-group list-group-flush">
                             <li class="list-group-item text-start">Height: <span data-result="height" class="italic"></span></li>
                             <li class="list-group-item text-start">Weight: <span data-result="weight" class="italic"></span></li>
-                            <li class="list-group-item text-start">Type: <span data-result="type" class="italic text-capitalize"></span></li>
+                            <li class="list-group-item text-start">Type: <span data-result="types" class="italic text-capitalize"></span></li>
                             <li class="list-group-item text-start">Abilities: <span data-result="abilities" class="italic text-capitalize"></span></li>
                     </ul>
                 </div>
