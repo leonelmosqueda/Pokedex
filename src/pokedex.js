@@ -1,4 +1,4 @@
-import { fetchPokemonInfo, fetchPokemonList } from './api/pokemon.js';
+import { fetchPokemonList, fetchPokemonInfo } from './services/pokemon.js';
 import { showPokemonList } from './ui/list.js';
 import { showPaginator } from './ui/paginator.js';
 import { showPokemonInfo } from './ui/pokemon.js';

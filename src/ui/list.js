@@ -64,19 +64,32 @@ function configureList (pokemonList) {
   });
 }
 
+// debouncing
+
 function handlePokemonClick (event, callback) {
   const { target } = event;
   handleActiveItem(target);
   const id = target.dataset.id;
-  callback(id);
+  clearTimeout(handlePokemonClick.timerId); // cancela temporizador anterior
+  handlePokemonClick.timerId = setTimeout(() => {
+    callback(id);
+  }, 100); // retrasa la llamada al callback
+}
+
+handlePokemonClick.timerId = null;
+
+function configurePokemonList (callback) {
+  $list.removeEventListener('click', handleClick);
+  $list.addEventListener('click', handleClick);
+
+  function handleClick (event) {
+    handlePokemonClick(event, callback);
+  }
 }
 
 export function showPokemonList (pokemonList, callbackUpdatePokemon) {
   clearList();
   createList(pokemonList.length);
   configureList(pokemonList);
-
-  $list.addEventListener('click', (event) => {
-    handlePokemonClick(event, callbackUpdatePokemon);
-  });
+  configurePokemonList(callbackUpdatePokemon);
 }

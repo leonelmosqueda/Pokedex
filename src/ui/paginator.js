@@ -1,5 +1,7 @@
 const $paginator = document.querySelector('#paginator');
 
+let paginatorEventListener = null;
+
 function createButton (page, text) {
   const $item = document.createElement('li');
   $item.classList.add('page-item');
@@ -97,12 +99,18 @@ export function showPaginator (currentPage, numPages, callbackUpdateList) {
   createPageButtons(currentPage, numPages);
   createLastAndNextButtons(currentPage, numPages);
 
-  $paginator.addEventListener('click', (event) => {
+  if (paginatorEventListener) {
+    $paginator.removeEventListener('click', paginatorEventListener);
+  }
+
+  paginatorEventListener = (event) => {
     const { target } = event;
 
     if (target.classList.contains('page-link')) {
       const pageNumber = parseInt(target.dataset.page);
       callbackUpdateList(pageNumber);
     }
-  });
+  };
+
+  $paginator.addEventListener('click', paginatorEventListener);
 }
