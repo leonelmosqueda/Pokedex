@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "http-server -c-1",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test:cypress:dev": "cypress open",
+    "test:cypress": "cypress run",
+    "test:ui": "run-p server test:cypress",
+    "test:ui:dev": "run-p server test:cypress:dev"
   },
   "repository": {
     "type": "git",
@@ -19,14 +21,14 @@
     "url": "https://github.com/leonelmosqueda/pokedex/issues"
   },
   "homepage": "https://github.com/leonelmosqueda/pokedex#readme",
-  "dependencies": {
-    "cypress": "^10.10.0"
-  },
   "devDependencies": {
+    "cypress": "^12.5.1",
     "eslint": "^8.29.0",
     "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.6.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "npm-run-all": "^4.1.5"
   }
 }

@@ -2,9 +2,10 @@ const $paginator = document.querySelector('#paginator');
 
 let paginatorEventListener = null;
 
-function createButton (page, text) {
+function createButton (page, text, test) {
   const $item = document.createElement('li');
   $item.classList.add('page-item');
+  $item.dataset.test = test || `page-${text}`;
 
   const $link = document.createElement('a');
   $link.classList.add('page-link');
@@ -26,8 +27,8 @@ function disableFirstAndPrevButtonsIfNeeded (firstButton, prevButton, currentPag
 }
 
 function createFirstAndPrevButtons (currentPage) {
-  const $firstButton = createButton(1, '«');
-  const $prevButton = createButton(currentPage - 1, '‹');
+  const $firstButton = createButton(1, '«', 'first-page-button');
+  const $prevButton = createButton(currentPage - 1, '‹', 'previous-page-button');
 
   disableFirstAndPrevButtonsIfNeeded($firstButton, $prevButton, currentPage);
 
@@ -75,8 +76,8 @@ function disableLastAndNextButtonsIfNeeded (nextButton, lastButton, currentPage,
 }
 
 function createLastAndNextButtons (currentPage, numPages) {
-  const $nextButton = createButton(currentPage + 1, '›');
-  const $lastButton = createButton(numPages, '»');
+  const $nextButton = createButton(currentPage + 1, '›', 'next-page-button');
+  const $lastButton = createButton(numPages, '»', 'last-page-button');
 
   disableLastAndNextButtonsIfNeeded($nextButton, $lastButton, currentPage, numPages);
 

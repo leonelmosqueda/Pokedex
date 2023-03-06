@@ -1,0 +1,43 @@
+{
+    "count": 1279,
+    "next": null,
+    "previous": "https://pokeapi.co/api/v2/pokemon?offset=1260&limit=10",
+    "results": [
+      {
+        "name": "gimmighoul-roaming",
+        "url": "https://pokeapi.co/api/v2/pokemon/10263/"
+      },
+      {
+        "name": "koraidon-limited-build",
+        "url": "https://pokeapi.co/api/v2/pokemon/10264/"
+      },
+      {
+        "name": "koraidon-sprinting-build",
+        "url": "https://pokeapi.co/api/v2/pokemon/10265/"
+      },
+      {
+        "name": "koraidon-swimming-build",
+        "url": "https://pokeapi.co/api/v2/pokemon/10266/"
+      },
+      {
+        "name": "koraidon-gliding-build",
+        "url": "https://pokeapi.co/api/v2/pokemon/10267/"
+      },
+      {
+        "name": "miraidon-low-power-mode",
+        "url": "https://pokeapi.co/api/v2/pokemon/10268/"
+      },
+      {
+        "name": "miraidon-drive-mode",
+        "url": "https://pokeapi.co/api/v2/pokemon/10269/"
+      },
+      {
+        "name": "miraidon-aquatic-mode",
+        "url": "https://pokeapi.co/api/v2/pokemon/10270/"
+      },
+      {
+        "name": "miraidon-glide-mode",
+        "url": "https://pokeapi.co/api/v2/pokemon/10271/"
+      }
+    ]
+  }
