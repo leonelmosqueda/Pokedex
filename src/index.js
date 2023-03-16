@@ -1,3 +1,3 @@
-import { init } from './pokedex.js';
+import init from './pokedex.js';
 
 init();

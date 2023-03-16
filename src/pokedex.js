@@ -22,9 +22,11 @@ async function updatePokemonInfo (id) {
   showPokemonInfo(formattedPokemonInfo);
 }
 
-export async function init () {
+async function init () {
   pokemonListData = await fetchPokemonList(currentPage);
   totalPages = Math.ceil(pokemonListData.totalPokemon / POKEMON_PER_PAGE);
   showPokemonList(pokemonListData.pokemonList, updatePokemonInfo);
   showPaginator(currentPage, totalPages, updatePokemonList);
 }
+
+export default init;

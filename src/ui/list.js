@@ -1,8 +1,6 @@
 import { getId } from '../utilities/utilities.js';
 
-const $list = document.querySelector('#list');
-
-function clearList () {
+function clearList ($list) {
   const $listElements = $list.querySelectorAll('[data-item]');
 
   for (const $element of $listElements) {
@@ -32,7 +30,7 @@ function configureListItem (listItem) {
   return listItem;
 }
 
-function createList (count) {
+function createList ($list, count) {
   for (let i = 0; i < count; i += 1) {
     $list.appendChild(configureListItem(createListItem()));
   }
@@ -55,8 +53,8 @@ function handleActiveItem (item) {
   item.classList.add('active');
 }
 
-function configureList (pokemonList) {
-  const $listItems = document.querySelectorAll('#list [data-item]');
+function configureList ($list, pokemonList) {
+  const $listItems = $list.querySelectorAll('[data-item]');
 
   $listItems.forEach((item, index) => {
     setPokemonName(item, pokemonList[index].name);
@@ -78,7 +76,7 @@ function handlePokemonClick (event, callback) {
 
 handlePokemonClick.timerId = null;
 
-function configurePokemonList (callback) {
+function configurePokemonList ($list, callback) {
   $list.removeEventListener('click', handleClick);
   $list.addEventListener('click', handleClick);
 
@@ -88,8 +86,10 @@ function configurePokemonList (callback) {
 }
 
 export function showPokemonList (pokemonList, callbackUpdatePokemon) {
-  clearList();
-  createList(pokemonList.length);
-  configureList(pokemonList);
-  configurePokemonList(callbackUpdatePokemon);
+  const $list = document.querySelector('#list');
+  
+  clearList($list);
+  createList($list, pokemonList.length);
+  configureList($list, pokemonList);
+  configurePokemonList($list, callbackUpdatePokemon);
 }

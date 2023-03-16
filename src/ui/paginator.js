@@ -1,5 +1,3 @@
-const $paginator = document.querySelector('#paginator');
-
 let paginatorEventListener = null;
 
 function createButton (page, text, test) {
@@ -26,17 +24,17 @@ function disableFirstAndPrevButtonsIfNeeded (firstButton, prevButton, currentPag
   }
 }
 
-function createFirstAndPrevButtons (currentPage) {
+function createFirstAndPrevButtons ($paginator, currentPage) {
   const $firstButton = createButton(1, '«', 'first-page-button');
   const $prevButton = createButton(currentPage - 1, '‹', 'previous-page-button');
 
   disableFirstAndPrevButtonsIfNeeded($firstButton, $prevButton, currentPage);
 
-  renderPageButton($firstButton);
-  renderPageButton($prevButton);
+  renderPageButton($paginator, $firstButton);
+  renderPageButton($paginator, $prevButton);
 }
 
-function createPageButtons (currentPage, numPages) {
+function createPageButtons ($paginator, currentPage, numPages) {
   const $pageButtons = [];
   let startPage, endPage;
 
@@ -61,7 +59,7 @@ function createPageButtons (currentPage, numPages) {
       $pageButton.classList.remove('active');
     }
 
-    renderPageButton($pageButton);
+    renderPageButton($paginator, $pageButton);
   }
 }
 
@@ -75,30 +73,32 @@ function disableLastAndNextButtonsIfNeeded (nextButton, lastButton, currentPage,
   }
 }
 
-function createLastAndNextButtons (currentPage, numPages) {
+function createLastAndNextButtons ($paginator, currentPage, numPages) {
   const $nextButton = createButton(currentPage + 1, '›', 'next-page-button');
   const $lastButton = createButton(numPages, '»', 'last-page-button');
 
   disableLastAndNextButtonsIfNeeded($nextButton, $lastButton, currentPage, numPages);
 
-  renderPageButton($nextButton);
-  renderPageButton($lastButton);
+  renderPageButton($paginator, $nextButton);
+  renderPageButton($paginator, $lastButton);
 }
 
-function renderPageButton (button) {
+function renderPageButton ($paginator, button) {
   $paginator.appendChild(button);
 }
 
 export function showPaginator (currentPage, numPages, callbackUpdateList) {
+  const $paginator = document.querySelector('#paginator');
+
   $paginator.innerHTML = '';
 
   if (numPages <= 1) {
     return;
   }
 
-  createFirstAndPrevButtons(currentPage);
-  createPageButtons(currentPage, numPages);
-  createLastAndNextButtons(currentPage, numPages);
+  createFirstAndPrevButtons($paginator, currentPage);
+  createPageButtons($paginator, currentPage, numPages);
+  createLastAndNextButtons($paginator, currentPage, numPages);
 
   if (paginatorEventListener) {
     $paginator.removeEventListener('click', paginatorEventListener);

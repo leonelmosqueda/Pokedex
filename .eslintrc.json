@@ -2,7 +2,10 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "cypress/globals": true
+        "cypress/globals": true,
+        "jest/globals": true,
+        "node": true,
+        "jest": true
     },
     "extends": "standard",
     "overrides": [
@@ -16,7 +19,8 @@
         "quotes": ["error", "single"]
     },
     "plugins": [
-        "cypress"
+        "cypress",
+        "jest"
     ]
     
 }
