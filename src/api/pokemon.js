@@ -20,8 +20,16 @@ export async function fetchPokemonList (page = 1) {
 }
 
 export async function fetchPokemonInfo (id) {
-  const url = `${BASE_URL}/${id}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const url = `${BASE_URL}/${id}`;
+    const response = await fetch(url);
+    if(!response.ok) {
+      throw new Error(`An error occurred: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
