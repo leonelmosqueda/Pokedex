@@ -56,7 +56,7 @@ describe('fetchPokemonList function', () => {
   })
 });
 
-describe('fetchPokemonInfo function services', () => {
+describe('fetchPokemonInfo function', () => {
   test('throws an error if called without an ID', async () => {
     await expect(fetchPokemonInfo()).rejects.toThrow('An id is needed to fetch a pokemon');
   });
