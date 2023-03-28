@@ -3,7 +3,7 @@ const pokeball = '../../img/pokeball.png';
 function showPokemonImage (urlImage) {
   const $image = document.querySelector('[data-result="image"]');
 
-  if (urlImage === null) {
+  if (urlImage === null || urlImage === undefined) {
     $image.setAttribute('src', pokeball);
     $image.classList.add('rotate');
   } else {
