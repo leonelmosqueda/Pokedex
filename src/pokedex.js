@@ -11,8 +11,8 @@ let totalPages;
 
 async function updatePokemonList (page) {
   pokemonListData = await fetchPokemonList(page);
-  totalPages = Math.ceil(pokemonListData.totalPokemon / POKEMON_PER_PAGE);
-  showPokemonList(pokemonListData.pokemonList, updatePokemonInfo);
+  totalPages = Math.ceil(pokemonListData.total / POKEMON_PER_PAGE);
+  showPokemonList(pokemonListData.results, updatePokemonInfo);
   showPaginator(page, totalPages, updatePokemonList);
 }
 
@@ -24,7 +24,7 @@ async function updatePokemonInfo (id) {
 
 export async function init () {
   pokemonListData = await fetchPokemonList(currentPage);
-  totalPages = Math.ceil(pokemonListData.totalPokemon / POKEMON_PER_PAGE);
-  showPokemonList(pokemonListData.pokemonList, updatePokemonInfo);
+  totalPages = Math.ceil(pokemonListData.total / POKEMON_PER_PAGE);
+  showPokemonList(pokemonListData.results, updatePokemonInfo);
   showPaginator(currentPage, totalPages, updatePokemonList);
 }

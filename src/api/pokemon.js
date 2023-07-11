@@ -7,16 +7,8 @@ export async function fetchPokemonList (page = 1) {
   const offset = (page - 1) * limit;
   const url = `${BASE_URL}?offset=${offset}&limit=${limit}`;
   const response = await fetch(url);
-  const data = await response.json();
-  const pokemonList = data.results.map((result) => ({
-    name: result.name,
-    url: result.url
-  }));
-
-  return {
-    pokemonList,
-    totalPokemon: data.count
-  };
+  const data = response.json();
+  return data;
 }
 
 export async function fetchPokemonInfo (id) {

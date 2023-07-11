@@ -9,7 +9,7 @@ import {
   fetchPokemonList as fetchPokemonListFromApi,
   fetchPokemonInfo as fetchPokemonInfoFromApi
 } from '../api/pokemon.js';
-import { mapPokemon } from '../mappers/pokedex.js';
+import { mapPokemon, mapPokemonList } from '../mappers/pokedex.js';
 
 export async function fetchPokemonList (page) {
   const limit = POKEMON_PER_PAGE;
@@ -17,7 +17,8 @@ export async function fetchPokemonList (page) {
   try {
     return fetchPokemonListFromLocalStorage(offset, limit);
   } catch (e) {
-    const pokemonList = await fetchPokemonListFromApi(page);
+    const pokemonListData = await fetchPokemonListFromApi(page);
+    const pokemonList = mapPokemonList(pokemonListData);
     savePokemonList(offset, limit, pokemonList);
     return pokemonList;
   }
