@@ -9,21 +9,28 @@ export function getUrl (offset) {
   return `${BASE_URL}?offset=${offset}&limit=${POKEMON_PER_PAGE}`;
 }
 
-export function formatPokemonInfo (pokemonData) {
-  const { name, weight, height, types, abilities, sprites } = pokemonData;
-  // eslint-disable-next-line camelcase
-  const { front_default } = sprites.other['official-artwork'];
-
-  const formattedTypes = types.map((type) => type.type.name).join(', ');
-  const formattedAbilities = abilities.map((ability) => ability.ability.name).join(', ');
+/**
+ * Formats the information of a Pokemon.
+ *
+ * @param {Object} pokemon - The Pokemon object to format.
+ * @param {string} pokemon.name - The name of the Pokemon.
+ * @param {number} pokemon.height - The height of the Pokemon in decimeters.
+ * @param {number} pokemon.weight - The weight of the Pokemon in hectograms.
+ * @param {string} pokemon.image - The URL of the Pokemon's image.
+ * @param {Array} pokemon.types - An array of strings representing the types of the Pokemon.
+ * @param {Array} pokemon.abilities - An array of strings representing the abilities of the Pokemon.
+ * @return {Object} - The formatted Pokemon object.
+ */
+export function formatPokemonInfo ({ name, height, weight, image, types, abilities }) {
+  const typesString = types.join(' - ');
+  const abilitiesString = abilities.join(' - ');
 
   return {
     name,
-    // eslint-disable-next-line camelcase
-    image: front_default,
+    image,
     weight: `${weight / 10} kg`,
     height: `${height * 10} cm`,
-    types: formattedTypes,
-    abilities: formattedAbilities
+    types: typesString,
+    abilities: abilitiesString
   };
 }
