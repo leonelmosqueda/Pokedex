@@ -1,4 +1,4 @@
-class PokemonList {
+export class PokemonList {
   /**
    * @param {Number} total - The total number of pokemon in the pokedex.
    * @param {String | null} next - The URL for the next page of results.  Can be null.
