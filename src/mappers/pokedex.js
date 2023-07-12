@@ -28,7 +28,7 @@ export function mapPokemon (apiData) {
  * @return {PokemonList} - The PokemonList object created from the API data.
  */
 export function mapPokemonList (apiData) {
-  const { count, next, previous, results } = apiData;
+  const { count, results } = apiData;
 
-  return new PokemonList(count, next, previous, results);
+  return new PokemonList(count, results);
 }

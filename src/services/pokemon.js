@@ -2,8 +2,8 @@ import { POKEMON_PER_PAGE } from '../pokedex.js';
 import {
   fetchPokemonList as fetchPokemonListFromLocalStorage,
   fetchPokemonInfo as fetchPokemonInfoFromLocalStorage,
-  savePokemonList,
-  savePokemon
+  savePokemonListToLocalStorage,
+  savePokemonToLocalStorage
 } from '../storage/pokemon.js';
 import {
   fetchPokemonList as fetchPokemonListFromApi,
@@ -29,7 +29,7 @@ export async function fetchPokemonList (page) {
   } catch (error) {
     const pokemonListData = await fetchPokemonListFromApi(page);
     const pokemonList = mapPokemonList(pokemonListData);
-    savePokemonList(offset, limit, pokemonList);
+    savePokemonListToLocalStorage(offset, limit, pokemonList);
     return pokemonList;
   }
 }
@@ -51,7 +51,7 @@ export async function fetchPokemonData (id) {
   } catch (error) {
     const pokemonData = await fetchPokemonInfoFromApi(id);
     const pokemon = mapPokemon(pokemonData);
-    savePokemon(id, pokemon);
+    savePokemonToLocalStorage(id, pokemon);
     return pokemon;
   }
 }
