@@ -1,30 +1,37 @@
-import { fetchPokemonList, fetchPokemonInfo } from './services/pokemon.js';
+import { fetchPokemonList, fetchPokemonData } from './services/pokemon.js';
 import { showPokemonList } from './ui/list.js';
 import { showPaginator } from './ui/paginator.js';
 import { showPokemonInfo } from './ui/pokemon.js';
-import { formatPokemonInfo } from './utilities/utilities.js';
+import { formatPokemonData } from './utilities/utilities.js';
 
 export const POKEMON_PER_PAGE = 10;
 const currentPage = 1;
-let pokemonListData = [];
-let totalPages;
 
 async function updatePokemonList (page) {
-  pokemonListData = await fetchPokemonList(page);
-  totalPages = Math.ceil(pokemonListData.total / POKEMON_PER_PAGE);
+  const pokemonListData = await fetchPokemonList(page);
+  const totalPages = Math.ceil(pokemonListData.total / POKEMON_PER_PAGE);
+
   showPokemonList(pokemonListData.results, updatePokemonInfo);
   showPaginator(page, totalPages, updatePokemonList);
 }
 
 async function updatePokemonInfo (id) {
-  const pokemonInfo = await fetchPokemonInfo(id);
-  const formattedPokemonInfo = formatPokemonInfo(pokemonInfo);
-  showPokemonInfo(formattedPokemonInfo);
+  try {
+    const pokemonData = await fetchPokemonData(id);
+    const formattedPokemonData = formatPokemonData(pokemonData);
+    showPokemonInfo(formattedPokemonData);
+  } catch (error) {
+    console.error('Failed to update Pokemon info:', error);
+  }
 }
 
 export async function init () {
-  pokemonListData = await fetchPokemonList(currentPage);
-  totalPages = Math.ceil(pokemonListData.total / POKEMON_PER_PAGE);
-  showPokemonList(pokemonListData.results, updatePokemonInfo);
-  showPaginator(currentPage, totalPages, updatePokemonList);
+  const pokemonListData = await fetchPokemonList(currentPage);
+  const totalPages = Math.ceil(pokemonListData.total / POKEMON_PER_PAGE);
+
+  const updatePokemonInfoCallback = updatePokemonInfo;
+  const updatePokemonListCallback = updatePokemonList;
+
+  showPokemonList(pokemonListData.results, updatePokemonInfoCallback);
+  showPaginator(currentPage, totalPages, updatePokemonListCallback);
 }
