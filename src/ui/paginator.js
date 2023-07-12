@@ -3,27 +3,23 @@ const $paginator = document.querySelector('#paginator');
 let paginatorEventListener = null;
 
 function createButton (page, text, test) {
-  const $item = document.createElement('li');
-  $item.classList.add('page-item');
-  $item.dataset.test = test || `page-${text}`;
+  const $listItem = document.createElement('li');
+  $listItem.classList.add('page-item');
+  $listItem.dataset.test = test || `page-${text}`;
 
   const $link = document.createElement('a');
   $link.classList.add('page-link');
   $link.dataset.page = page;
   $link.textContent = text;
 
-  $item.appendChild($link);
-  return $item;
+  $listItem.appendChild($link);
+  return $listItem;
 }
 
 function disableFirstAndPrevButtonsIfNeeded (firstButton, prevButton, currentPage) {
-  if (currentPage === 1) {
-    firstButton.classList.add('disabled');
-    prevButton.classList.add('disabled');
-  } else {
-    firstButton.classList.remove('disabled');
-    prevButton.classList.remove('disabled');
-  }
+  const isCurrentPageFirst = currentPage === 1;
+  firstButton.classList.toggle('disabled', isCurrentPageFirst);
+  prevButton.classList.toggle('disabled', isCurrentPageFirst);
 }
 
 function createFirstAndPrevButtons (currentPage) {
@@ -66,13 +62,9 @@ function createPageButtons (currentPage, numPages) {
 }
 
 function disableLastAndNextButtonsIfNeeded (nextButton, lastButton, currentPage, numPages) {
-  if (currentPage === numPages) {
-    nextButton.classList.add('disabled');
-    lastButton.classList.add('disabled');
-  } else {
-    nextButton.classList.remove('disabled');
-    lastButton.classList.remove('disabled');
-  }
+  const isLastPage = currentPage === numPages;
+  nextButton.classList.toggle('disabled', isLastPage);
+  lastButton.classList.toggle('disabled', isLastPage);
 }
 
 function createLastAndNextButtons (currentPage, numPages) {

@@ -3,11 +3,9 @@ import { getId } from '../utilities/utilities.js';
 const $list = document.querySelector('#list');
 
 function clearList () {
-  const $listElements = $list.querySelectorAll('[data-item]');
+  const $listElements = document.querySelectorAll('[data-item]');
 
-  for (const $element of $listElements) {
-    $element.remove();
-  }
+  $listElements.forEach(element => element.remove());
 }
 
 function createListItem () {
@@ -16,9 +14,7 @@ function createListItem () {
 
 function configureListItem (listItem) {
   listItem.dataset.item = '';
-
   listItem.setAttribute('href', '#');
-
   listItem.classList.add(
     'list-group-item',
     'list-group-item-action',
@@ -28,7 +24,6 @@ function configureListItem (listItem) {
     'text-capitalize',
     'user-select-none'
   );
-
   return listItem;
 }
 
@@ -38,15 +33,15 @@ function createList (count) {
   }
 }
 
-function setPokemonName (item, name) {
-  item.textContent = name;
+function updatePokemonName (element, newName) {
+  element.textContent = newName;
 }
 
 function setPokemonId (item, id) {
   item.dataset.id = id;
 }
 
-function handleActiveItem (item) {
+function setActiveItem (item) {
   const $activeItem = document.querySelector('[data-item].active');
 
   if ($activeItem) {
@@ -59,37 +54,37 @@ function configureList (pokemonList) {
   const $listItems = document.querySelectorAll('#list [data-item]');
 
   $listItems.forEach((item, index) => {
-    setPokemonName(item, pokemonList[index].name);
+    updatePokemonName(item, pokemonList[index].name);
     setPokemonId(item, getId(pokemonList[index].url));
   });
 }
 
 // debouncing
 
-function handlePokemonClick (event, callback) {
+function handleClickOnPokemon (event, callback) {
   const { target } = event;
-  handleActiveItem(target);
-  const id = target.dataset.id;
-  clearTimeout(handlePokemonClick.timerId); // cancela temporizador anterior
-  handlePokemonClick.timerId = setTimeout(() => {
+  setActiveItem(target);
+  const id = Number(target.dataset.id);
+  clearTimeout(handleClickOnPokemon.timerId); // cancela temporizador anterior
+  handleClickOnPokemon.timerId = setTimeout(() => {
     callback(id);
   }, 100); // retrasa la llamada al callback
 }
 
-handlePokemonClick.timerId = null;
+handleClickOnPokemon.timerId = null;
 
 function configurePokemonList (callback) {
   $list.removeEventListener('click', handleClick);
   $list.addEventListener('click', handleClick);
 
   function handleClick (event) {
-    handlePokemonClick(event, callback);
+    handleClickOnPokemon(event, callback);
   }
 }
 
-export function showPokemonList (pokemonList, callbackUpdatePokemon) {
+export function showPokemonList (pokemonList, updateCallback) {
   clearList();
   createList(pokemonList.length);
   configureList(pokemonList);
-  configurePokemonList(callbackUpdatePokemon);
+  configurePokemonList(updateCallback);
 }
